@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Xml.Linq;
 
@@ -17,6 +18,12 @@ namespace DocDisplay
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //HtmlControl contentPanel1 = (HtmlControl)this.FindControl("dociframe");
+
+            //if (contentPanel1 != null)
+            //    contentPanel1.Attributes["src"] = "https://stackoverflow.com/questions/5015070/using-iframes-in-asp-net";
+
+            
 
         }
 
@@ -41,7 +48,9 @@ namespace DocDisplay
                     var htmlFileName = g.ToString() + ".html";
                     ConvertToHtml(byteArray
                         , convertedDocsDirectory, htmlFileName);
-                    Response.Redirect(DocxConvertedToHtmlDirectory + htmlFileName);
+                    //Response.Redirect(DocxConvertedToHtmlDirectory + htmlFileName);
+                    iframeDiv.Controls.Add(new LiteralControl("<iframe width='560' height='315' " +
+                        "src=" + @"DocxConvertedToHtml\" + htmlFileName + "></iframe><br />"));
 
                 }
                 catch(Exception ex)
